@@ -1,5 +1,5 @@
 # token-project
-This repository contain token project with some list of feature below 
+This repository contain ethereum token project write in solidity with some list of feature below 
 
 1. initial token suplay release
 2. maximum token suplay available
