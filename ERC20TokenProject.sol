@@ -13,12 +13,12 @@ contract TokenX {
     uint256 public burnRate; // Initial burn rate: 0.000002828%
     uint256 public percentageBurn = 1000000000;
     uint256 public initialBurnRate = 2828; // Initial burn rate: 0.000002828%
-    uint256 public halvingInterval = 282828; // Halving occurs every 282828 transactions
+    uint256 public halvingInterval = 282828; // Halving occurs every 282828 block transactions
 
     uint256 public baseFee = initialBurnRate * percentageBurn; // Base fee is initial burn rate
     
-    uint256 public blockRewardRatio = 1 * 10 ** 24;
-    uint256 public initialBlockReward = 280397; // Initial block reward: 280397 million tokens
+    uint256 public blockRewardRatio = 1 * 10 ** 21;
+    uint256 public initialBlockReward = 280397; // Initial block reward: 280.397.000 tokens
     uint256 public blockReward; // The rest of token when initialize place here as reserve for reward and burn
     uint256 public blockCount; // Count the block created when transaction occur
     
