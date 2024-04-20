@@ -30,7 +30,7 @@ contract TokenX {
         address holderAddress;
         uint256 balanceOf;
     }
-    Holder[] public holders;
+    Holder[] private holders;
 
     
     event Transfer(address indexed from, address indexed to, uint256 value);
