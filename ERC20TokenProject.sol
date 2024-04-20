@@ -13,7 +13,7 @@ contract TokenX {
     uint256 public burnRate; // Initial burn rate: 0.000002828%
     uint256 public percentageBurn = 1000000000;
     uint256 public initialBurnRate = 2828; // Initial burn rate: 0.000002828%
-    uint256 public halvingInterval = 282828; // Halving occurs every 282828 block transactions
+    uint256 public halvingInterval = 282828; // Halving occurs every 282828 transactions
 
     uint256 public baseFee = initialBurnRate * percentageBurn; // Base fee is initial burn rate
     
@@ -66,10 +66,10 @@ contract TokenX {
         require(fromHolderData.balanceOf >= _value, "Insuficient Balance to Transfer");
         bool fromAddressCheck = fromHolderData.holderAddress == msg.sender;
         require(fromAddressCheck, "Sender address invalid");
-        bool t0AddressCheck = toHolderData.holderAddress == msg.sender;
+        bool toAddressCheck = toHolderData.holderAddress == _to;
         
 
-        if (((totalSupply-currentSupply) - currentSupply) < (((totalSupply - currentSupply) * burnRate / percentageBurn))+(blockRewardRatio * blockReward) && t0AddressCheck){
+        if (((totalSupply-currentSupply) - currentSupply) < ((((totalSupply - currentSupply) * burnRate / percentageBurn))+(blockRewardRatio * blockReward)) && toAddressCheck){
             uint256 feeCharge = _value * baseFee;
             uint256 valueAfterFee = _value - feeCharge;
             require(decreaseBalanceHolder(fromHolderData, _value) && increaseBalanceHolder(toHolderData, valueAfterFee), "balance transfer failed");
@@ -78,7 +78,7 @@ contract TokenX {
             blockCount ++;
             
         }
-        else if(t0AddressCheck){
+        else if(toAddressCheck){
             require(decreaseBalanceHolder(fromHolderData, _value) && increaseBalanceHolder(toHolderData, _value), "balance transfer failed");
             emit Transfer(fromHolderData.holderAddress, toHolderData.holderAddress, _value);
             blockCount ++;
@@ -179,7 +179,7 @@ contract TokenX {
         }
     }
 
-    function registerHolder(address _newHolder) public returns (bool Return){
+    function registerHolder(address _newHolder) internal returns (bool Return){
         
         holders.push(Holder({holderAddress : _newHolder, balanceOf : 0}));
         
